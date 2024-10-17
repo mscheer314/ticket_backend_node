@@ -14,7 +14,7 @@ const AppDataSource = new DataSource({
     logging: true,
 })
 
-export const connectDB = async (retries = 5) => {
+const connectDB = async (retries = 5) => {
     while (retries) {
         try {
             await AppDataSource.initialize()
@@ -25,4 +25,9 @@ export const connectDB = async (retries = 5) => {
             await new Promise(res => setTimeout(res, 5000))
         }
     }
+}
+
+export {
+    connectDB,
+    AppDataSource as dataSource
 }
