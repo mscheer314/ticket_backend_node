@@ -7,15 +7,15 @@ connectDB()
 const app = express()
 app.use(express.json())
 
-app.get('/', async (req: Request, res: Response) => {
+app.get('/tickets', async (req: Request, res: Response) => {
     // res.send('hey what up!')
-    const tickets = await ticketRepository.find() 
+    const tickets = await ticketRepository.find()
     res.json(tickets)
-    // const response = ticketRepository.find().then((data) => {
-        // console.log('in the promise response@!!!!!!')
-        // res.send(data)
-    // })
-    // res.send(ticketRepository.find())
+})
+
+app.get('/tickets/:id', async (req: Request, res: Response) => {
+    const ticket = await ticketRepository.findOneBy({ id: parseInt(req.params.id) })
+    res.json(ticket)
 })
 
 app.listen(3000, () => {
